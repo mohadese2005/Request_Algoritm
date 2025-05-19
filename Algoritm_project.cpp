@@ -1,10 +1,8 @@
-﻿// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 using namespace std;
+#include <string>
 
-class node_BST 
+class node_BST
 {
 public:
     node_BST(string name, int id);
@@ -18,13 +16,13 @@ private:
     int ID;
 };
 
-node_BST::node_BST(string name, int id) 
+node_BST::node_BST(string name, int id)
 {
     Name = name;
     ID = id;
 }
 
-string node_BST::get_name() 
+string node_BST::get_name()
 {
     return Name;
 }
@@ -40,24 +38,9 @@ public:
     void printBST();
     void Transplant(node_BST* u, node_BST* v);
     void DeleteRequest_BST(int id);
-    string empty_BST();
 private:
     node_BST* parent = NULL;
 };
-string BST::empty_BST()
-{
-    string save;
-    if (parent == NULL)
-    {
-        save = "*Empity*";
-        return save;
-    }
-    else
-    {
-        save = "not_Empity";
-        return save;
-    }
-}
 
 node_BST* BST::SearchRequest_BST(int id)
 {
@@ -78,7 +61,7 @@ node_BST* BST::SearchRequest_BST(int id)
         }
         else
         {
-            cout << "** this id not found **";
+            cout << "** this id not found **" << endl;
             return nullptr;
         }
     }
@@ -88,16 +71,10 @@ void BST::InsertRequest_BST(string name, int id)
     node_BST* newNode = new node_BST(name, id);
     node_BST* y = NULL;
     node_BST* x = parent;
-    node_BST* z = SearchRequest_BST(id);
-    if (z!=0)
-    {
-        cout << "this id is already exist" << endl;
-        return;
-    }
-    while (x != NULL) 
+    while (x != NULL)
     {
         y = x;
-        if (id < x->get_ID()) 
+        if (id < x->get_ID())
         {
             x = x->L;
         }
@@ -110,7 +87,7 @@ void BST::InsertRequest_BST(string name, int id)
     {
         parent = newNode;
     }
-    else if (id < y->get_ID()) 
+    else if (id < y->get_ID())
     {
         y->L = newNode;
         newNode->p = y;
@@ -119,43 +96,45 @@ void BST::InsertRequest_BST(string name, int id)
         y->R = newNode;
         newNode->p = y;
     }
+    cout << "BST insert node: " << "  ->  ID = " << newNode->get_ID() << ", Name = " << newNode->get_name() << endl;
+
 }
 
 node_BST* Tree_minimum(node_BST* node)
 {
-    while (node->L!=NULL)
+    while (node->L != NULL)
     {
-        node=node->L;
+        node = node->L;
     }
     return node;
 }
-void BST::Transplant(node_BST* u, node_BST* v) 
+void BST::Transplant(node_BST* u, node_BST* v)
 {
-    if (u == parent) 
+    if (u == parent)
     {
         parent = v;
     }
-    else if (u->p->L == u) 
+    else if (u->p->L == u)
     {
         u->p->L = v;
     }
-    else 
+    else
     {
         u->p->R = v;
     }
-    if (v != nullptr) 
+    if (v != nullptr)
     {
         v->p = u->p;
     }
 }
-void BST::DeleteRequest_BST(int id) 
+void BST::DeleteRequest_BST(int id)
 {
     node_BST* x = SearchRequest_BST(id);
     if (x == NULL)
     {
         return;
     }
-    if (x->R == NULL) 
+    if (x->R == NULL)
     {
         Transplant(x, x->L);
     }
@@ -163,10 +142,10 @@ void BST::DeleteRequest_BST(int id)
     {
         Transplant(x, x->R);
     }
-    else 
+    else
     {
         node_BST* y = Tree_minimum(x->R);
-        if (y->p != x) 
+        if (y->p != x)
         {
             Transplant(y, y->R);
             y->R = x->R;
@@ -176,11 +155,12 @@ void BST::DeleteRequest_BST(int id)
         y->L = x->L;
         y->L->p = y;
     }
+    cout << "Delete BST node: " << "  ->  ID = " << x->get_ID() << ", Name = " << x->get_name() << endl;
 }
 
-void preorder_Traversal(node_BST* node) 
+void preorder_Traversal(node_BST* node)
 {
-    if (node != NULL) 
+    if (node != NULL)
     {
         cout << "ID: " << node->get_ID() << ", Name: " << node->get_name() << endl;
         preorder_Traversal(node->L);
@@ -188,7 +168,7 @@ void preorder_Traversal(node_BST* node)
     }
 }
 
-void BST::printBST() 
+void BST::printBST()
 {
     preorder_Traversal(parent);
 }
@@ -231,8 +211,8 @@ int node_heap::get_ID()
 {
     return ID;
 }
-int D_id=0;
-class max_heap 
+int D_id = 0;
+class max_heap
 {
 public:
     max_heap();
@@ -243,7 +223,7 @@ public:
     bool isEmptyHeap();
     void maxheapify(int index);
     void increasePriority(int id, int newPriority);
-    void insertHeap(int id,int priority);
+    void insertHeap(int id, int priority);
     void print_Levelorder();
     void processHighestPriorityRequest();
     void deleteMaxHeap();
@@ -269,7 +249,7 @@ int max_heap::right(int x)
 }
 bool max_heap::isEmptyHeap()
 {
-    return heap_size == 0;
+    return heap_size == NULL;
 }
 void max_heap::maxheapify(int index)
 {
@@ -286,69 +266,18 @@ void max_heap::maxheapify(int index)
     }
     if (largest != index)
     {
-        swap(heap[index],heap[largest]);
+        swap(heap[index], heap[largest]);
         maxheapify(largest);
     }
 }
 void max_heap::increasePriority(int id, int newPriority)
 {
     int i = 0;
-    while (i<heap_size && heap[i].get_ID()!=id)
+    while (i < heap_size)
     {
-        i++;
-    }
-    if (newPriority<heap[i].get_priority())
-    {
-        cout << "** new priority is smaller than current one **";
-        return;
-    }
-    heap[i].set_priority(newPriority) ;
-    while (i>0 && heap[parent(i)].get_priority()< heap[i].get_priority())
-    {
-        swap(heap[i], heap[parent(i)]);
-            i = parent(i);
-    }
-
-}
-void max_heap::insertHeap(int id, int priority)
-{
-    heap_size= heap_size+1;
-    heap[heap_size - 1].set_ID(id);
-    heap[heap_size - 1].set_priority(INT_MIN);
-    increasePriority(id, priority);
-}
-void max_heap::print_Levelorder()
-{
-    int i = 0;
-    while (i<heap_size)
-    {
-        cout << "ID:" << heap[i].get_ID() << ",priority:" << heap[i].get_priority()<<endl;
-        i++;
-
-    }
-    cout << endl;
-}
-void max_heap::deleteMaxHeap()
-{
-    
-    if (heap_size!=0) 
-    {
-        node_heap maximum = heap[0];
-        D_id = maximum.get_ID();
-        heap[0] = heap[heap_size - 1];
-        heap_size= heap_size-1;
-        maxheapify(0);
-    }
-
-}
-void max_heap::Delete(int id)
-{
-    int i = 0;
-    while (i < heap_size) 
-    {
-        if (heap[i].get_ID() == id) 
+        if (heap[i].get_ID() == id)
         {
-            break; 
+            break;
         }
         i++;
     }
@@ -356,27 +285,82 @@ void max_heap::Delete(int id)
         std::cout << " ** this id not found **" << std::endl;
         return;
     }
-    heap[i] = heap[heap_size - 1];
-    heap_size= heap_size-1;
-    maxheapify(i);
+    if (newPriority < heap[i].get_priority())
+    {
+        cout << "** new priority is smaller than current one **"<<endl ;
+        return;
+    }
+    cout << "node last info: " << "  ->  ID = " << heap[i].get_ID() << ", priority = " << heap[i].get_priority() << endl;
+    heap[i].set_priority(newPriority);
+    cout << "node new info: " << "  ->  ID = " << heap[i].get_ID() << ", new priority = " << heap[i].get_priority() << endl;
+    while (i > 0 && heap[parent(i)].get_priority() < heap[i].get_priority())
+    {
+        swap(heap[i], heap[parent(i)]);
+        i = parent(i);
+    }
+}
+void max_heap::insertHeap(int id, int priority)
+{
+    heap_size = heap_size + 1;
+    heap[heap_size - 1].set_ID(id);
+    heap[heap_size - 1].set_priority(INT_MIN);
+    increasePriority(id, priority);
+    cout << "heap insert node: " << "  ->  ID = " << id << ", priority = " << priority << endl;
+}
+void max_heap::print_Levelorder()
+{
+    int i = 0;
+    while (i < heap_size)
+    {
+        cout << "ID:" << heap[i].get_ID() << ",priority:" << heap[i].get_priority() << endl;
+        i++;
 
+    }
+    cout << endl;
+}
+void max_heap::deleteMaxHeap()
+{
+    if (heap_size != 0)
+    {
+        node_heap maximum = heap[0];
+        D_id = maximum.get_ID();
+        cout << "Delete Heap node: " << "  ->  ID = " << heap[0].get_ID() << ", priority = " << heap[0].get_priority() << endl;
+        heap[0] = heap[heap_size - 1];
+        heap_size = heap_size - 1;
+        maxheapify(0);
+    }
+}
+void max_heap::Delete(int id)
+{
+    int i = 0;
+    while (i < heap_size)
+    {
+        if (heap[i].get_ID() == id)
+        {
+            break;
+        }
+        i++;
+    }
+    if (i == heap_size) {
+        std::cout << " ** this id not found **" << std::endl;
+        return;
+    }
+    cout << "Delete Heap node: " << "  ->  ID = " << heap[i].get_ID() << ", priority = " << heap[i].get_priority() << endl;
+    heap[i] = heap[heap_size - 1];
+    heap_size = heap_size - 1;
+    maxheapify(i);
 }
 void max_heap::processHighestPriorityRequest()
-{    
+{
 
 }
-
-
-
 int main() {
     BST tree;
     max_heap heap;
-    string x;
     string Name;
     int ID = 0;
     int Priority = 0;
-    cout << "list: 1.insert / 2.search in BST / 3.Delete / 4.search and delete in BST&heap  / 5.extract max in heap&BST / 6.increase Priority in heap / ";
-    cout << "7.print_BST / 8.print_heap" << endl;
+    cout << "list: 1.insert / 2.search in BST / 3.Delete / 4.extract max in heap&BST / 5.increase Priority in heap / 6.print " <<endl;
     cout << endl;
     while (true)
     {
@@ -391,16 +375,29 @@ int main() {
             cin >> ID;
             cout << "Priority: ";
             cin >> Priority;
-            tree.InsertRequest_BST(Name, ID);
-            heap.insertHeap(ID, Priority);
+            if (tree.SearchRequest_BST(ID)!=NULL)
+            { 
+                cout << "**this id is already exist**" << endl;
+            }
+            else
+            {
+                tree.InsertRequest_BST(Name, ID);
+                heap.insertHeap(ID, Priority);
+            }
         }
         else if (choose_item == 2)
         {
             int search;
             cout << "ID you want to search: ";
             cin >> search;
-            node_BST* id = tree.SearchRequest_BST(search);
-            cout << "  ->  ID = " << id->get_ID() << ", Name = " << id->get_name() << endl;
+            if (tree.SearchRequest_BST(search)!=NULL)
+            {
+                cout << "  ->  ID = " << tree.SearchRequest_BST(search)->get_ID() << ", Name = " << tree.SearchRequest_BST(search)->get_name() << endl;
+            }
+            else
+            {
+                cout << "** this id not found **" << endl;
+            }
         }
         else if (choose_item == 3)
         {
@@ -410,21 +407,13 @@ int main() {
             tree.DeleteRequest_BST(delete_item);
             heap.Delete(delete_item);
         }
+        
         else if (choose_item == 4)
-        {
-            int delete_search_item;
-            cout << "ID you want to search and Delete: ";
-            cin >> delete_search_item;
-            tree.SearchRequest_BST(delete_search_item);
-            tree.DeleteRequest_BST(delete_search_item);
-            heap.Delete(delete_search_item);
-        }
-        else if (choose_item == 5)
         {
             heap.deleteMaxHeap();
             tree.DeleteRequest_BST(D_id);
         }
-        else if (choose_item == 6)
+        else if (choose_item == 5)
         {
             int id;
             int new_Priority;
@@ -434,13 +423,10 @@ int main() {
             cin >> new_Priority;
             heap.increasePriority(id, new_Priority);
         }
-        else if (choose_item == 7)
+        else if (choose_item == 6)
         {
             cout << "print BST:" << endl;
             tree.printBST();
-        }
-        else if (choose_item == 8)
-        {
             cout << "print max_heap:" << endl;
             heap.print_Levelorder();
         }
