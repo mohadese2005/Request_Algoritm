@@ -3,8 +3,7 @@
 
 A C++ project for managing requests with functionalities such as insertion, search, deletion, priority update, and removal of the highest-priority request, all using Binary Search Tree (BST) and MaxHeap data structures.
 
-📌 Project Description
-
+# 📌 Project Description
 This system allows you to manage user requests efficiently.
 Each request contains:
 
@@ -12,14 +11,11 @@ Name (string)
 ID (int)
 Priority (int)
 
-
 To organize and access the data quickly, two data structures are implemented:
-
 Binary Search Tree (BST) → Sorted by ID
 MaxHeap → Sorted by Priority
 
-
-✨ Features
+# ✨ Features
 
 ✅ Add a new request using Name, ID, and Priority
 
@@ -36,8 +32,7 @@ MaxHeap → Sorted by Priority
 🖨 Print MaxHeap using Level Order traversal
 
 
-
-🧠 Data Structures
+# 🧠 Data Structures
 
 📘 Binary Search Tree (BST)
 
@@ -57,8 +52,7 @@ Priority
 MaxHeap maintains the node with the highest priority at the top.
 
 
-
-🧱 Class Structure
+# 🧱 Class Structure
 
 The system is built using 4 main classes:
 
@@ -68,11 +62,11 @@ MaxHeapNode: Node structure for MaxHeap
 MaxHeap: Heap structure and operations
 Plus, a main.cpp file that demonstrates how the system works with sample inputs.
 
-💻 Technologies Used
+# 💻 Technologies Used
 
 Language: C++
 Data Structures: Binary Search Tree (BST) and MaxHeap
 
-📂 Repository
+# 📂 Repository
 
 GitHub: Request_Algoritm
